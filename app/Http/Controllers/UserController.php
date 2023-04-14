@@ -32,5 +32,35 @@ Class UserController extends Controller {
         $user = User::create($request->all());
         return $this->json($user, 200);
     }
+
+    public function updateUser(Request $request, $id) {
+        $rules = [
+            'username' => 'required | max:20',
+            'password' => 'required | max:20'
+        ];
+    
+        $this->validate($request, $rules);
+    
+        $user = User::findOrFail($id);
+    
+        $user->fill($request->all());
+    
+        if ($user->isClean()) {
+            return response()->json("At least one value must
+            change", 403);
+        } else {
+            $user->save();
+            return response()->json($user, 200);
+        }
+    }
+
+    public function deleteUser($id) {
+        $user = User::findOrFail($id);
+    
+        $user->delete();
+    
+        return response()->json($user, 200);
+    }
 }
     
+

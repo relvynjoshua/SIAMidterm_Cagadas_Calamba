@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-Class UserController extends Controller {
+Class TeacherController extends Controller {
     private $request;
     public function __construct(Request $request){
         $this->request = $request;
@@ -23,8 +23,10 @@ Class UserController extends Controller {
     public function add(Request $request ){
         
         $rules = [
-        'username' => 'required|max:20',
-        'password' => 'required|max:20'
+            'lastname' => 'required|max:50',
+            'firstname' => 'required|max:50',
+            'middlename' => 'required|max:50',
+            'age' => 'required|max:8'
         ];
 
         $this->validate($request,$rules);
@@ -35,8 +37,10 @@ Class UserController extends Controller {
 
     public function updateUser(Request $request, $id) {
         $rules = [
-            'username' => 'required | max:20',
-            'password' => 'required | max:20'
+            'lastname' => 'required|max:50',
+            'firstname' => 'required|max:50',
+            'middlename' => 'required|max:50',
+            'age' => 'required|max:8'
         ];
     
         $this->validate($request, $rules);
@@ -56,10 +60,18 @@ Class UserController extends Controller {
 
     public function deleteUser($id) {
         $user = User::findOrFail($id);
-    
-        $user->delete();
-    
-        return response()->json($user, 200);
+
+        if ($user) {
+            $user->delete();
+
+            return response()->json($user, 200);
+        } else {
+            return response()->json("User Not Found", 404);
+        }
+    }
+    public function show($id) {
+        $user = User::findorFail($id);
+        return $this->sucessResponse($user);
     }
 }
     

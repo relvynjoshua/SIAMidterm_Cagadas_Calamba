@@ -4,9 +4,9 @@
     namespace App\Models;
     use Illuminate\Database\Eloquent\Model;
     class User extends Model{
-        protected $table = 'tbluser';
+        protected $table = 'tblteacher';
         protected $fillable = [
-        'username', 'password'
+        'teacherid', 'lastname', 'firstname', 'middlename', 'bday', 'age'
         ];
 
         public $timestamps = false;

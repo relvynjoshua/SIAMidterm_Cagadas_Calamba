@@ -18,8 +18,9 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->get('/users',['uses' => 'UserController@getUsers']);
-$router->post('/users',['uses' => 'UserController@add']);
-$router->patch('/users/{id}',['uses' => 'UserController@updateUser']);
-$router->delete('/users/{id}',['uses' => 'UserController@deleteUser']);
-
+$router->get('/users',['uses' => 'TeacherController@getUsers']);
+$router->post('/users',['uses' => 'TeacherController@add']);
+$router->delete('/users/{id}',['uses' => 'TeacherController@deleteUser']);
+$router->patch('/users/{id}',['uses' => 'TeacherController@updateUser']);
+$router->get('/users/{id}',['uses' => 'TeacherController@show']);
+$router->get('/users/{id}',['uses' => 'TeacherController@index']);
